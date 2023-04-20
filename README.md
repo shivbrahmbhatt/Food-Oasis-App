@@ -1,4 +1,3 @@
-
 # Food Oasis 🥦
 
 This is a web application that allows users to find local food sources in their area. It is designed to promote local and sustainable food options, and to make it easier for users to find fresh, healthy, and delicious food close to home.
