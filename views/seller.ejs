@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Food Oasis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+      <link rel="apple-touch-icon" sizes="60x60" href="/public/assets/images/favicon.png">
+      <link rel="icon" type="image/x-icon" href="/public/assets/images/favicon.png">
+    <link rel="stylesheet" href="/public/assets/styles.css">
+    <script src="https://kit.fontawesome.com/f5df53a5eb.js" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEpEFH-J73zwhD4pOiYoY8K8K-LxY8RjU"></script>
+  </head>
+  <body>
+    <section id="title"> 
+        <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark  ">
+            <img  href="/" src="/public/assets/images/logowhite.png" style="height: 75px; width: 75px;">
+          <a class="navbar-brand" href="/">Food Oasis</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-bs-controls="navbarTogglerDemo01" aria-bs-expanded="false" aria-bs-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#about">about</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact">contact</a>
+              </li>
+              
+               <li class="nav-item"><a class="btn btn-light" href="/profile">Profile</a></li>
+               <li class="nav-item"><a class="btn btn-dark" href="/auth/logout">Logout</a></li>
+               
+            </ul>
+          </div>
+        </nav>
+    <h1>Add Your Store Now</h1>
+    <form action="/auth/seller" method="POST">
+    <div style="padding-bottom: 10px;">
+        <label for="store">Store Name:</label>
+        <input type="text" id="store" name="store">
+        
+        </div>
+        <div style="padding-top: 10px; padding-bottom: 10px;">
+            <label for="food">Choose a category:</label>
+            <select name="food" id="food" multiple>
+              <option value="meats">Meats</option>
+              <option value="vegetables">Vegetables</option>
+              <option value="fruits">Fruits</option>
+              <option value="dairy">Dairy</option>
+            </select>
+        </div>
+        <div style="padding-bottom: 10px;">
+        <button type="submit" class="btn fw-bold btn-success rounded-pill">Submit</button>
+        </div>
+</form>
+        <div>
+      <label for="address">Enter an address:</label>
+      <input type="text" id="address" />
+      <button class="btn fw-bold btn-success rounded-pill" onclick="addMarker()">Add Marker</button>
+    </div>
+ 
+    <div style="padding-top: 10px; padding-bottom: 20px;"><a class="btn btn-dark" href="/customermap">Customer Map</a></div>
+    <div><p style="color: #EDF1D6; font-size: 20px;" id="output"></p></div>
+    <% if (typeof message != "undefined" && message) { %>
+        <h4 class="alert alert-danger mt-4"><%= message %></h4>
+        <% } %>
+    <div id="map" style="height: 400px;"></div>
+    
+    </div>
+    </section>
+    <script>
+        const txt1 = document.getElementById('store');
+        const btn1 = document.getElementById('btn1');
+        const out1 = document.getElementById('output');
+
+        function fun1(){
+            out1.innerHTML = txt1.value;
+
+        }
+
+        btn1.addEventListener('click', fun1);
+    </script>
+    <script>
+      // Create a new Google Map centered on a default location
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat:33.753746, lng: -84.386330 },
+        zoom: 10,
+
+      });
+
+      
+      // Create a function to add a marker to the map
+      function addMarker() {
+        // Get the address entered by the user
+        const address = document.getElementById("address").value;
+        
+        // Use the Google Maps Geocoding API to get the coordinates for the address
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: address }, (results, status) => {
+          if (status === "OK") {
+            // Create a new marker at the coordinates returned by the geocoder
+            const marker = new google.maps.Marker({
+              position: results[0].geometry.location,
+              map: map,
+              icon: './public/assets/images/here.png'
+            });
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+        
+      }
+    </script>
+  </body>
+  <footer id="footer">
+    <p class="footer-txt">
+      designed and built by food oasis co.
+      </p>
+      <p>
+     site under development.
+      </p>
+      <a href=""><i class="fa-solid fa-envelope fa-2x icon-links"></i></a>
+  </footer>
+</html>

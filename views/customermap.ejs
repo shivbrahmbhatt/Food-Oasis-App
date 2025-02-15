@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Food Oasis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/public/assets/styles.css">
+    <style>
+      .filterDiv {
+        float: left;
+        background-color: #40513B;
+        color: #EDF1D6;
+        width: 100px;
+        line-height: 100px;
+        text-align: center;
+        margin: 2px;
+        display: none;
+      }
+      
+      .show {
+        display: block;
+      }
+      
+      .container {
+        margin-top: 20px;
+        overflow: hidden;
+      }
+      
+      /* Style the buttons */
+      .btn {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: #ffffff;
+        cursor: pointer;
+      }
+      
+      .btn:hover {
+        background-color: #40513B;
+      }
+      
+      .btn.active {
+        background-color: #9DC08B;
+        color: #ffffff;
+      }
+      </style>
+    <script src="https://kit.fontawesome.com/f5df53a5eb.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+  <!-- Nav bar -->
+
+   <section id="login-page">
+     <div class="container-fluid">
+
+     <nav class="navbar navbar-expand-lg navbar-dark  ">
+          <img href="index.html" src="/public/assets/images/logowhite.png" style="height: 75px; width: 75px;">
+       <a class="navbar-brand" href="/">Food Oasis</a>
+         
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-bs-controls="navbarTogglerDemo01" aria-bs-expanded="false" aria-bs-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+         <ul class="navbar-nav ms-auto">
+             <li class="nav-item">
+             <a class="nav-link" href="/">home</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="/#about">about</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="/#contact">contact</a>
+           </li>
+           <% if (user) { %>
+            <li class="nav-item"><a class="btn btn-light" href="/profile">Profile</a></li>
+            <li class="nav-item"><a class="btn" href="/auth/logout">Logout</a></li>
+            <%} else {%>
+           <li class="nav-item">
+             <a class="btn btn-light" href="/login">log in</a>
+           </li>
+             <li class="nav-item">
+             <a class="btn btn-light" href="/register">sign up</a>
+           </li>
+           <% } %>
+         </ul>
+       </div>
+     </nav>
+     
+   <!--   <form id="location-form">
+          <input type="text" id="location-input" class="form-control form-control-lg">
+          <br>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+         </form>
+         <div class="card-block" id="formatted-address"></div>
+         <div class="card-block" id="address-components"></div> -->
+         <div style="padding-bottom: 20px;;">
+         <button class="btn rounded-pill" onclick="getLocation()">Get My Location</button>
+         </div>
+         <div id="map"></div>
+
+         <div id="myBtnContainer" style="padding-top: 20px;">
+          <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+          <button class="btn" onclick="filterSelection('meats')"> Meats</button>
+          <button class="btn" onclick="filterSelection('vegetables')"> Vegetables</button>
+          <button class="btn" onclick="filterSelection('fruits')"> Fruits</button>
+          <button class="btn" onclick="filterSelection('dairy')"> Dairy</button>
+        </div>
+        
+        <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
+        <div class="container">
+          <div id="1" class="filterDiv meats dairy">Kroger</div>
+          <div id="2" class="filterDiv vegetables fruits">Sprouts Food</div>
+          <div id="3" class="filterDiv vegetables fruits">Whole Foods</div>
+          <div id="4" class="filterDiv fruits">Trader Joes</div>
+          <div id="5" class="filterDiv meats dairy">Publix</div>
+        </div>
+
+        </div>
+       
+
+      
+      </section>
+ <!--    <script>
+        //geocode();
+
+        var locationForm = document.getElementById('location-form');
+
+        locationForm.addEventListener('submit', geocode)
+       
+
+        function geocode(e){
+          e.preventDefault();
+          var location = document.getElementById('location-input').value;
+          axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+            params: {
+              address: location, 
+              key : 'AIzaSyAEpEFH-J73zwhD4pOiYoY8K8K-LxY8RjU',
+            }
+          })
+          .then(function(response){
+            console.log(response);
+
+            var formattedAddress = response.data.results[0].formatted_address;
+            var formattedAddressOutput = `
+              <ul class="list-group">
+                <li class = "list-group-item">${formattedAddress}</li>
+                </ul>
+            `;
+
+            var addressComponents = response.data.results[0].address_components;
+            var addressComponentsOutput = '<ul class = "list-group">';
+              for (var i =0; i < addressComponents.length; i++){
+                  addressComponentsOutput += `
+                  <li class = "list-group-item"><strong>${addressComponents[i].types[0]}
+                    </strong>: ${addressComponents[i].long_name}</li>
+                  `
+              }
+              addressComponentsOutput += '</ul>';
+
+              var lat = response.data.results[0].geometry.location.lat;
+              var lng = response.data.results[0].geometry.location.lng;
+              var geometryOutput = `
+              <ul class="list-group">
+                <li class = "list-group-item">${lat}</li>
+                </ul>
+            `;
+
+            document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+            document.getElementById('address-components').innerHTML = addressComponentsOutput;
+            document.getElementById('geometry').innerHTML = geometryOutput;
+          })
+          .catch(function(error){
+            console.log(error);
+          })
+        }
+      </script> -->
+  <script>
+  
+    function initMap(){
+     
+      var options = {
+        zoom: 12,
+        center: {
+          lat: 33.8235065, lng:-84.4032286
+        },
+        mapId: '7f4a17863b7643bd'
+      }
+      var map = new
+      google.maps.Map(document.getElementById('map'), options);
+
+      //Add marker
+      /* var marker = new google.maps.Marker({
+        position:{lat:33.8235065, lng:-84.4032286},
+        map:map
+      })
+
+      var infoWindow = new google.maps.InfoWindow({
+        content:'<p style="color: #000000">Whole Foods</p>'
+      })
+
+      marker.addListener('click', function(){
+        infoWindow.open(map, marker)
+      }) */
+
+     
+      var markers = [
+      {coords: {lat:33.77798955858245, lng:-84.36585107751836}, title1: '1', iconImage:'./public/assets/images/icon21.png',
+      content: '<h4 style= "color: #000000">Whole Foods</h4><br><p style= "color: #000000">Address: 650 Ponce De Leon Ave NE, Atlanta, GA 30308</p><br><a href="https://goo.gl/maps/jFCs9P9HoQ8EqnbK9" target="_blank">Get Directions</a>'},
+      {coords: {lat:33.81151387797509, lng:-84.36653772297568},title1: '2', iconImage:'./public/assets/images/icon21.png', content: '<h4 style= "color: #000000">Sprouts Food</h4><br><p style= "color: #000000">Address: 1845 Piedmont Ave NE Ste 500, Atlanta, GA 30324</p><br><a href="https://goo.gl/maps/DkHJc8XiWXSq4KPL6" target="_blank">Get Directions</a>'},
+      {coords: {lat:33.781455933275744, lng:-84.36733004610208}, title1: '3',iconImage:'./public/assets/images/icon21.png', content: '<h4 style= "color: #000000">Trader Joes</h4><br><p style= "color: #000000">Address: 931 Monroe Dr NE, Atlanta, GA 30308</p><br><a href="https://goo.gl/maps/iJXz2Mas3NQhYNM97" target="_blank">Get Directions</a>'},
+      {coords: {lat:33.78269782207246, lng: -84.3889978735698},title1: '4', iconImage:'./public/assets/images/icon21.png', content: '<h4 style= "color: #000000">Publix Super Market at The Plaza Midtown</h4><br><p style= "color: #000000">Address: 950 W Peachtree St NW, Atlanta, GA 30309</p><br><a href="https://goo.gl/maps/dkcGbtKj976CD6dF8" target="_blank">Get Directions</a>'},
+      {coords: {lat:33.87438849526145, lng: -84.45846319208724},title1: '5', iconImage:'./public/assets/images/icon21.png', content: '<h4 style= "color: #000000">Kroger</h4><br><p style= "color: #000000">Address: 3300 Cobb Pkwy SE, Atlanta, GA 30339</p><br><a href="https://goo.gl/maps/6MU9pz49JX2gbAXU9" target="_blank">Get Directions</a>'},
+      {coords: {lat:33.75097822668646, lng: -84.38550814659963},title1: '6', iconImage:'./public/assets/images/here.png', content: '<h4 style= "color: #000000">You are Here</h4>'}
+      ]
+
+      for(var i = 0; i < markers.length;i++){
+        addMarker(markers[i])
+      }
+      function addMarker(props){
+        
+        var marker = new google.maps.Marker({
+        position: props.coords,
+        map:map,
+        //title: props.title,
+        //icon: props.iconImage
+      })
+
+      if(props.iconImage){
+        marker.setIcon(props.iconImage);
+      }
+      if(props.content){
+        var infoWindow = new google.maps.InfoWindow({
+        content: props.content
+      })
+
+      marker.addListener('click', function(){
+        infoWindow.open(map, marker)
+      })
+      }
+      if(props.title1){
+        var infoWindow = new google.maps.InfoWindow({
+        content: props.content
+      })
+      }
+      document.getElementById('1').addEventListener('click', function(){
+          infoWindow.open(map, marker.setTitle(props.title1))
+        })
+        document.getElementById('2').addEventListener('click', function(){
+          infoWindow.open(map, marker.setTitle(props.title1))
+        })
+        document.getElementById('3').addEventListener('click', function(){
+          infoWindow.open(map, marker.setTitle(props.title1))
+        })
+        document.getElementById('4').addEventListener('click', function(){
+          infoWindow.open(map, marker.setTitle(props.title1))
+        })
+        document.getElementById('5').addEventListener('click', function(){
+          infoWindow.open(map, marker.setTitle(props.title1))
+        })
+    }
+  }
+  </script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEpEFH-J73zwhD4pOiYoY8K8K-LxY8RjU&callback=initMap">
+</script>
+<script>
+  filterSelection("all")
+  function filterSelection(c) {
+    var x, i;
+    x = document.getElementsByClassName("filterDiv");
+    if (c == "all") c = "";
+    for (i = 0; i < x.length; i++) {
+      w3RemoveClass(x[i], "show");
+      if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+    }
+  }
+  
+  function w3AddClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+    }
+  }
+  
+  function w3RemoveClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      while (arr1.indexOf(arr2[i]) > -1) {
+        arr1.splice(arr1.indexOf(arr2[i]), 1);     
+      }
+    }
+    element.className = arr1.join(" ");
+  }
+  
+  // Add active class to the current button (highlight it)
+  var btnContainer = document.getElementById("myBtnContainer");
+  var btns = btnContainer.getElementsByClassName("btn");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function(){
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
+  </script>
+  <script>
+    var x = document.getElementById("demo");
+    
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+    
+    function showPosition(position) {
+      x.innerHTML = "Latitude: " + position.coords.latitude + 
+      "<br>Longitude: " + position.coords.longitude;
+    }
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+   
+</body>
+</html>

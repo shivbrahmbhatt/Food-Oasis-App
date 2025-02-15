@@ -1,0 +1,266 @@
+
+.container-fluid {
+  padding: 3% 15% 7%;
+}
+
+#title{
+  color: #EEEEEE;
+  background-color:#609966;
+  padding-bottom: 75px;
+  text-align: center;
+}
+
+#map{
+  height: 400px;
+  width: 100%;
+}
+
+/* Navbar */
+
+
+
+.navbar {
+  padding: 0 0 4.5rem;
+}
+
+.navbar-brand{
+  font-family: 'Poppins';
+  font-weight: 300;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link{
+  font-family: 'Poppins';
+  font-weight: 300;
+  color: #EEEEEE;
+}
+
+.nav-link:hover{
+  color: #40513B;
+}
+
+.btn-light{
+    font-family: 'Poppins';
+}
+
+/*Filter Elements */
+
+
+.filterDiv {
+  float: left;
+  background-color: #2196F3;
+  color: #ffffff;
+  width: 100px;
+  line-height: 100px;
+  text-align: center;
+  margin: 2px;
+  display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+
+/* Title */
+
+.big-heading{
+  margin-top: 100px;
+  font-family: 'Poppins';
+  font-weight: 900;
+  color: #EEEEEE;
+  font-size: 3rem;
+
+}
+
+.title-heading{
+  padding-top: 20px;
+  font-family: 'Poppins';
+  font-weight: 300;
+  color: #EEEEEE;
+}
+
+.contact-link{
+  padding-top: 100px;
+}
+
+.contact-heading{
+  padding-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.contact-heading-btn{
+  font-family: 'Poppins';
+  font-weight: 300;
+  background-color: #40513B;
+  color: #EEEEEE;
+
+}
+
+.contact-heading-btn:hover{
+  background-color: #9DC08B;
+}
+
+
+
+/* About Me */
+#about{
+  color: #101010;
+  background-color: #EDF1D6;
+  padding-bottom: 75px;
+  text-align: center;
+     padding: 5% 5%;
+  font-family: 'Poppins';
+  font-weight: 300;
+}
+
+.about-heading{
+  padding-bottom: 20px;
+}
+.row{
+  text-align: center;
+  padding: 5% 5%;
+  font-family: 'Poppins';
+  font-weight: 300;
+}
+
+.profile-img{
+  text-align: center;
+
+}
+
+.profile:hover{
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+.profile{
+    border-radius: 100%;
+    box-shadow: 10px 5px 5px #222831;
+    width: 40%;
+}
+.list-style{
+  color: #EEEEEE;
+  list-style: url('images/code-solid.svg') outside;
+}
+
+.about-btn{
+    padding-top: 30px;
+}
+
+/* Area Search */
+#areasearch{
+    color: #EEEEEE;
+  background-color: #609966;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.address-form{
+    text-align: center;
+    padding: 30px;
+}
+
+.place-form{
+    padding-bottom: 15px;
+    padding-left: 150px;
+    padding-right: 150px;
+   
+}
+
+/* Contact */
+#contact{
+  color: #101010;
+  background-color: #EDF1D6;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  text-align: center;
+
+}
+.contact-me{
+  font-family: 'Poppins';
+}
+
+.h4-contact{
+  font-weight: 400;
+  font-size: 3.5rem;
+  padding-bottom: 30px;
+}
+
+.p-contact{
+  font-weight: 300;
+  padding-bottom: 30px;
+}
+
+/*Login Form Page */
+#login-page{
+color: #EEEEEE;
+  background-color:#609966;
+    padding-bottom: 110px;
+  text-align: center;
+}
+
+.login-form{
+      text-align: center;
+  font-family: 'Poppins';
+  font-weight: 300;
+  padding: 20px 20px;
+
+}
+
+.login-btn{
+    padding-top: 25px;
+}
+
+.mute-txt{
+    color: #EDF1D6;
+}
+
+.area-btn{
+    padding-top: 10px;
+}
+
+/* Register MAIN Page */
+.register-main{
+    padding-bottom: 10px;
+}
+
+.seller-btn{
+    padding-top: 20px;
+}
+
+.seller-grp{
+    padding-bottom: 10px;
+}
+
+.maps{
+    padding-top: 10px;
+}
+
+/* Footer */
+
+#footer{
+  text-align: center;
+  font-family: 'Poppins';
+  font-weight: 300;
+  color: #EDF1D6 ;
+  background-color: #40513B;
+  padding: 30px 30px;
+}
+
+.footer-txt{
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.icon-links{
+  color: #EDF1D6;
+  padding-left:15px;
+  padding-right: 15px;
+}
+.icon-links:hover{
+  color: #9DC08B;
+}
+
